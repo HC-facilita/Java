@@ -1,0 +1,29 @@
+﻿
+services:
+
+  - type: web
+
+    name: eco-park-api
+
+    env: docker
+
+    plan: free
+
+    docker:
+
+      dockerfile: Dockerfile
+
+    envVars:
+
+      - key: API_KEY
+
+        value: hcfacilitaz7
+
+      - key: CORS_ORIGINS  
+
+        value: https://*.vercel.app,http://localhost:3000
+
+      - key: QUARKUS_PROFILE
+
+        value: prod
+
