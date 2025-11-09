@@ -1,10 +1,12 @@
-﻿FROM maven:3.9.6-eclipse-temurin-17 as builder
+﻿# Dockerfile corrigido para estrutura de subpastas
+
+FROM maven:3.9.6-eclipse-temurin-17 as builder
  
 WORKDIR /app
 
-COPY pom.xml .
+COPY Java/JAVADAS/eco-park/pom.xml .
 
-COPY src ./src
+COPY Java/JAVADAS/eco-park/src ./src
 
 RUN mvn clean package -DskipTests
  
