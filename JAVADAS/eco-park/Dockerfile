@@ -1,17 +1,28 @@
 ﻿FROM maven:3.9.6-eclipse-temurin-17 as builder
  
 WORKDIR /app
+
+COPY . .
  
-RUN find . -name "pom.xml" -exec cp {} . \; && \
-    find . -name "src" -type d -exec cp -r {} . \; && \
-    mvn clean package -DskipTests
+# Navega até a pasta onde estão os arquivos
+
+WORKDIR /app/JAVADAS/eco-park
+
+RUN mvn clean package -DskipTests
  
 FROM eclipse-temurin:17-jre
+
 WORKDIR /app
-COPY --from=builder /app/target/quarkus-app/lib/ /deployments/lib/
-COPY --from=builder /app/target/quarkus-app/*.jar /deployments/
-COPY --from=builder /app/target/quarkus-app/app/ /deployments/app/
-COPY --from=builder /app/target/quarkus-app/quarkus/ /deployments/quarkus/
+
+COPY --from=builder /app/JAVADAS/eco-park/target/quarkus-app/lib/ /deployments/lib/
+
+COPY --from=builder /app/JAVADAS/eco-park/target/quarkus-app/*.jar /deployments/
+
+COPY --from=builder /app/JAVADAS/eco-park/target/quarkus-app/app/ /deployments/app/
+
+COPY --from=builder /app/JAVADAS/eco-park/target/quarkus-app/quarkus/ /deployments/quarkus/
  
 EXPOSE 8080
+
 CMD ["java", "-jar", "/deployments/quarkus-run.jar"]
+ 
