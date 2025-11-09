@@ -14,5 +14,6 @@ COPY --from=builder /app/JAVADAS/eco-park/target/quarkus-app/quarkus/ /deploymen
  
 EXPOSE 8080
 CMD ["java", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.http.port=8080", "-jar", "/deployments/quarkus-run.jar"]
+
  
  
